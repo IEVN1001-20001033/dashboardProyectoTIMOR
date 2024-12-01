@@ -1,0 +1,87 @@
+<div class="container">
+  <div class="row">
+    <div class="card">
+      <div class="card-header"><span
+        class="self-center text-3xl font-semibold tracking-wide whitespace-nowrap dark:text-green-300 font-serif">Lista Usuarios</span>
+       </div>
+      <div class="card-body">
+        <div class="grid grid-cols-3 grid-rows-1 gap-4 p-10">
+          <div><h2 class="self-center text-right font-semibold font-serif">Búsqueda Rápida:</h2> </div>
+          <div class="relative">
+            <input type="text" [(ngModel)]="listFilter" name="filter" class="form-control block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Búsqueda Rápida..."/>
+          </div>
+          <div> <button
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            [routerLink]="['/perfiles/admin/agregar']"
+          >
+          <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9V6c0-.55228.44772-1 1-1h16c.5523 0 1 .44771 1 1v3M3 9v9c0 .5523.44772 1 1 1h16c.5523 0 1-.4477 1-1V9M3 9h18M8 9V5m4 4V5m4 4V5m-6 9h2m0 0h2m-2 0v-2m0 2v2"/>
+          </svg>
+   
+            Agregar
+          </button>
+        </div>
+        </div>            
+        <div class="table-responsive">
+          <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-6">
+            <table
+              class="table table-striped w-full text-sm text-left rtl:text-right text-gray-300 dark:text-blue-400 border-collapse"
+              *ngIf="usuarios.length">
+              <thead class="thead-dark font-bold text-1x5 text-pink-800 uppercase dark:text-gray-400">
+                <tr>
+                  <th>ID</th>
+                  <th>Nombre</th>
+                  <th>Correo</th>
+                  <th>Contraseña</th>
+                  <th>Foto</th>
+                  <th>Perfil</th>
+                  <th>Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let usuario of dataSource.usuarios | usuarioFilter : listFilter"
+                  class="font-bold">
+                  <td>{{ usuario.idUsr }}</td>
+                  <td>{{ usuario.nombre | uppercase }}</td>
+                  <td>{{ usuario.correo }}</td>
+                  <td>{{ usuario.contrasena }}</td>
+                  <td><img *ngIf="usuario.foto" [src]="'http://localhost:5000/' + usuario.foto" alt="Foto de usuario"
+                      class="w-10 h-10" /></td>
+                  <td>{{ usuario.perfil }}</td>
+                  <td>{{ usuario.activo }}</td>
+
+                  <td>
+                    <button
+                      class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center me-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-900"
+                      [routerLink]="['/perfiles/admin/editar',usuario.idUsr]">
+                      <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M4 4H1m3 4H1m3 4H1m3 4H1m6.071.286a3.429 3.429 0 1 1 6.858 0M4 1h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1Zm9 6.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z" />
+                      </svg>
+
+                      Editar
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center me-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                      [routerLink]="['/perfiles/admin/eliminar',usuario.idUsr]">
+                      <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M3 15v3c0 .5523.44772 1 1 1h16c.5523 0 1-.4477 1-1v-3M3 15V6c0-.55228.44772-1 1-1h16c.5523 0 1 .44772 1 1v9M3 15h18M8 15v4m4-4v4m4-4v4m-5.5061-7.4939L12 10m0 0 1.5061-1.50614M12 10l1.5061 1.5061M12 10l-1.5061-1.50614" />
+                      </svg>
+
+                      Eliminar
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
