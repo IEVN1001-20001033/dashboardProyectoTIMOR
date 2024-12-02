@@ -10,13 +10,11 @@ export class FobiaService {
   
   constructor(private  http: HttpClient) { }
  
-  public getFobiasActivas():Observable<FobiaTimor[]>{
-    return this.http.get<FobiaTimor[]>('http://127.0.0.1:5000/api/fobia_api/fobias/activas')
-  } 
   
   public getFobias():Observable<FobiaTimor[]>{
     return this.http.get<FobiaTimor[]>('http://127.0.0.1:5000/api/fobia_api/fobias')
   } 
+
   agregarFobia(datos:FobiaTimor){
     return this.http.post('http://127.0.0.1:5000/api/fobia_api/fobias', datos)
   }
@@ -33,6 +31,10 @@ export class FobiaService {
     return this.http.delete<FobiaTimor>('http://127.0.0.1:5000/api/fobia_api/fobias/'+mat)
   }
 
+  public getFobiasActivas():Observable<FobiaTimor[]>{
+    return this.http.get<FobiaTimor[]>('http://127.0.0.1:5000/api/fobia_api/fobias/activas')
+  } 
+  
   subirFoto(formData: FormData) {
     return this.http.post<any>('http://localhost:5000/api/fobia_api/fobias/subir_foto', formData);
   }

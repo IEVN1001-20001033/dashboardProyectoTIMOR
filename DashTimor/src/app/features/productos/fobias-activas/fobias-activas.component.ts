@@ -10,21 +10,22 @@ import { CommonModule } from '@angular/common';
   styles: ``
 })
 export default class FobiasActivasComponent implements OnInit {
-  fobias: any[] = [];
+ 
+  dataSource:any=[];
 
-  constructor(private fobiaService: FobiaService) {}
-
+  constructor(public fobiasTimor:FobiaService){}
+ 
   ngOnInit(): void {
-    this.fobiaService.getFobias().subscribe({
-      next: (data) => {
-        if (data) {
-          this.fobias = data;
-        }
-      },
-      error: (err) => {
-        console.error('Error al obtener las fobias:', err);
-      }
-    });
+     this.fobiasTimor.getFobiasActivas().subscribe(
+      {
+        next: response=>{
+ 
+      this.dataSource=response;
+ 
+    },
+    error: error=>console.log(error)
   }
-
+    );
+ 
+}
 }

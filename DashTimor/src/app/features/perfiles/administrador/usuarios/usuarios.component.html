@@ -1,11 +1,8 @@
 <div class="container">
   <div class="row">
     <div class="card">
-      <div class="card-header"><span
-        class="self-center text-3xl font-semibold tracking-wide whitespace-nowrap dark:text-green-300 font-serif">Lista Usuarios</span>
-       </div>
       <div class="card-body">
-        <div class="grid grid-cols-3 grid-rows-1 gap-4 p-10">
+        <div class="grid grid-cols-3 grid-rows-1 gap-4">
           <div><h2 class="self-center text-right font-semibold font-serif">Búsqueda Rápida:</h2> </div>
           <div class="relative">
             <input type="text" [(ngModel)]="listFilter" name="filter" class="form-control block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Búsqueda Rápida..."/>
@@ -25,7 +22,7 @@
         <div class="table-responsive">
           <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-6">
             <table
-              class="table table-striped w-full text-sm text-left rtl:text-right text-gray-300 dark:text-blue-400 border-collapse"
+              class="table table-striped w-full sm:w-full overflow-x-auto text-sm text-left rtl:text-right text-gray-300 dark:text-blue-400 border-collapse"
               *ngIf="usuarios.length">
               <thead class="thead-dark font-bold text-1x5 text-pink-800 uppercase dark:text-gray-400">
                 <tr>
@@ -39,7 +36,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let usuario of dataSource.usuarios | usuarioFilter : listFilter"
+                <tr *ngFor="let usuario of dataSource.usuarios | usuarioFilter : listFilter | paginate: { itemsPerPage: 10, currentPage: p }" 
                   class="font-bold">
                   <td>{{ usuario.idUsr }}</td>
                   <td>{{ usuario.nombre | uppercase }}</td>
@@ -79,6 +76,9 @@
                 </tr>
               </tbody>
             </table>
+            <div class="d-flex justify-center">
+              <pagination-controls (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+            </div>
           </div>
         </div>
       </div>

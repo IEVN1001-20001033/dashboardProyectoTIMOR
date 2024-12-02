@@ -1,8 +1,8 @@
 <div class="container mx-auto px-4 py-6">
     <h1 class="text-3xl font-bold text-center mb-6">Fobias Activas</h1>
   
-    <div *ngIf="fobias.length > 0; else noData" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div *ngFor="let fobia of fobias" class="bg-white shadow-lg rounded-lg overflow-hidden">
+    <div  class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div *ngFor="let fobia of dataSource.fobias " class="bg-white shadow-lg rounded-lg overflow-hidden">
         <img [src]="'http://localhost:5000/' + fobia.foto" alt="{{ fobia.nombre }}" class="w-full h-48 object-cover">
        
         <div class="p-4">
@@ -12,9 +12,5 @@
         </div>
       </div>
     </div>
-  
-    <ng-template #noData>
-      <p class="text-center text-gray-500">No hay fobias activas para mostrar.</p>
-    </ng-template>
   </div>
   

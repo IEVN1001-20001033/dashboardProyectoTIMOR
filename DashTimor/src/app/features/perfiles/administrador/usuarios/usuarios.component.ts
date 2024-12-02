@@ -5,12 +5,13 @@ import { RouterLink } from '@angular/router';
 import { UsuariosFilterPipe } from '../../../../core/pipes/usuarios-filter.pipe';
 import { ServicioAdminService } from '../../../../core/services/servicio-admin.service';
 import { UsuariosTimor } from '../../../../core/interfaces/usuarios-timor';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @Component({
   selector: 'app-usuarios',
   standalone: true,
-  imports: [FormsModule, UsuariosFilterPipe, CommonModule, RouterLink],
+  imports: [FormsModule, UsuariosFilterPipe, CommonModule, RouterLink, NgxPaginationModule],
   templateUrl: './usuarios.component.html',
   styles: ``
 })
@@ -21,6 +22,8 @@ export default class UsuariosComponent implements OnInit{
   listFilter:string=''
   usuarioTitle!:string
   dataSource:any=[];
+  p: number = 1;
+
   constructor(public usuariostimor:ServicioAdminService){}
  
   showImage():void{

@@ -58,7 +58,7 @@ def actualizar_foto(mat):
     except Exception as ex:
         return jsonify({'mensaje': f"Error: {ex}", 'exito': False}), 500
 
-@fobia_api.route("/fobias/",methods=['GET'])
+@fobia_api.route("/fobias/activas",methods=['GET'])
 def lista_fobias_activas():
     try:
         cursor=con.connection.cursor()
