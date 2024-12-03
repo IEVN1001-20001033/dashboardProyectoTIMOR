@@ -9,7 +9,7 @@ def obtener_datos_ventas():
         cursor = con.connection.cursor()
         sql =  """
             SELECT fecha_venta, monto_pagado, idFobia 
-            FROM ventas
+            FROM suscripciones
         """
         cursor.execute(sql)
         ventas = cursor.fetchall()

@@ -1,0 +1,13 @@
+<div>
+    <label *ngFor="let mes of meses">
+      <input
+        type="radio"
+        name="mes"
+        [value]="mes.id"
+        (change)="onMonthChange(mes.id)"
+      />
+      {{ mes.name }}
+    </label>
+  </div>
+  <canvas id="pieChart"></canvas>
+  

@@ -20,7 +20,7 @@ export class ServicioAdminService {
   
   public getUsuario(mat:number):Observable<UsuariosTimor>{
     console.log(mat)
-    return this.http.get<UsuariosTimor>('http://127.0.0.1:5000/api/usr_api/usuarios/' + mat)
+    return this.http.get<UsuariosTimor>('http://127.0.0.1:5000/api/usr_api/usuarios/'+mat)
   }
    
   modificarUsuario(mat:number,datos:UsuariosTimor){

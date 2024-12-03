@@ -5,16 +5,18 @@ import { Router, RouterLink } from '@angular/router';
 import { UsuariosTimor } from '../../../../core/interfaces/usuarios-timor';
 import { ServicioAdminService } from '../../../../core/services/servicio-admin.service';
 
+
 @Component({
   selector: 'app-eliminar',
   standalone: true,
-  imports: [FormsModule,CommonModule,RouterLink],
+  imports: [FormsModule,CommonModule,RouterLink ],
   templateUrl: './eliminar.component.html',
   styles: ``
 })
 export default class EliminarUsrComponent implements OnInit {
   dataSource:any=[];
-  tem:any;
+  tem:any;  
+
   regUsuario:UsuariosTimor={
     idUsr:0,
     nombre:'',
@@ -29,6 +31,7 @@ export default class EliminarUsrComponent implements OnInit {
  
  
   ngOnInit(){
+    
     this.tem = this.location.path().split('/')
     console.log("componente "+this.tem[3])
     this.usuariosTimor.getUsuario(parseInt(this.tem[3])).subscribe(

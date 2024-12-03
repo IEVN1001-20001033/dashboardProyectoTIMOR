@@ -7,13 +7,13 @@ UPLOAD_FOLDER = 'static/uploads/'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 
-usr_api = Blueprint('usr_api', __name__)
+user_api = Blueprint('user_api', __name__)
 
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@usr_api.route('/usuarios/subir_foto', methods=['POST'])
+@user_api.route('/usuarios/subir_foto', methods=['POST'])
 def subir_foto():
     if 'foto' not in request.files:
         return jsonify({'mensaje': 'No se envió un archivo', 'exito': False}), 400
@@ -27,18 +27,17 @@ def subir_foto():
         file.save(filepath)
 
         public_url = f"/static/uploads/{filename}" 
-        
         return jsonify({'ruta': public_url, 'mensaje': 'Imagen subida exitosamente', 'exito': True})
     else:
         return jsonify({'mensaje': 'Archivo no permitido', 'exito': False}), 400
     
     
-@usr_api.route('/static/uploads/<filename>')
+@user_api.route('/static/uploads/<filename>')
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 
-@usr_api.route('/usuarios/<mat>/actualizar_foto', methods=['PUT'])
+@user_api.route('/usuarios/<mat>/actualizar_foto', methods=['PUT'])
 def actualizar_foto(mat):
     try:
         if 'foto' not in request.files:
@@ -66,7 +65,7 @@ def actualizar_foto(mat):
 
 
 
-@usr_api.route("/usuarios",methods=['GET'])
+@user_api.route("/usuarios",methods=['GET'])
 def lista_usuarios():
     try:
         cursor=con.connection.cursor()
@@ -115,7 +114,7 @@ def leer_usuario_bd(matricula):
 
         return jsonify({"message": "error {}".format(ex),'exito': False})
 
-@usr_api.route("/usuarios/<mat>",methods=['GET'])
+@user_api.route("/usuarios/<mat>",methods=['GET'])
 def leer_usuario(mat):
     try:
         usuario = leer_usuario_bd(mat)
@@ -126,7 +125,7 @@ def leer_usuario(mat):
     except Exception as ex:
         return jsonify({"message": "error {}".format(ex),'exito':False})#, 500
 
-@usr_api.route("/usuarios", methods=['POST'])
+@user_api.route("/usuarios", methods=['POST'])
 def registrar_usuario():
     try:
         usuario = leer_usuario_bd(request.json['idUsr'])
@@ -153,7 +152,7 @@ def registrar_usuario():
         return jsonify({'mensaje': "Error {}".format(ex), 'exito': False})
 
 
-@usr_api.route('/usuarios/<mat>', methods=['PUT'])
+@user_api.route('/usuarios/<mat>', methods=['PUT'])
 def actualizar_curso(mat):
     try:
             usuario = leer_usuario_bd(mat)
@@ -169,7 +168,7 @@ def actualizar_curso(mat):
     except Exception as ex:
         return jsonify({'mensaje': "Error {0} ".format(ex), 'exito': False})
  
-@usr_api.route('/usuarios/<mat>', methods=['DELETE'])
+@user_api.route('/usuarios/<mat>', methods=['DELETE'])
 def eliminar_curso(mat):
     try:
         usuario = leer_usuario_bd(mat)

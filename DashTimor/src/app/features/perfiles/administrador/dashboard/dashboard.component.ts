@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { VentasService } from '../../../../core/services/ventas.service';
 import Chart from 'chart.js/auto';
+import PastelComponent from './pastel/pastel.component';
+import BarrasComponent from './barras/barras.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [],
+  imports: [BarrasComponent, PastelComponent],
   templateUrl: './dashboard.component.html',
 })
 export default class DashboardComponent implements OnInit {

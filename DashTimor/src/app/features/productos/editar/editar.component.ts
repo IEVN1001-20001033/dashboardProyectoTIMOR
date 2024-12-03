@@ -88,7 +88,7 @@ export default class EditarComponent {
  
  modificar(){
   this.fobiasTimor.modificarFobia(this.tem[3],this.regFobia).subscribe({
-    next:()=>{ this.router.navigate(['/fobias/listafobias']) },
+    next:()=>{ this.router.navigate(['/perfiles/admin/listafobias']) },
     error:(e)=> console.error(e),
     complete:()=>console.info()})
 

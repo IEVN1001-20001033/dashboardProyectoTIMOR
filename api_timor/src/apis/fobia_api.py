@@ -17,18 +17,20 @@ def allowed_file(filename):
 def subir_foto():
     if 'foto' not in request.files:
         return jsonify({'mensaje': 'No se envió un archivo', 'exito': False}), 400
-    
+
     file = request.files['foto']
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
         filepath = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
+        
+        os.makedirs(current_app.config['UPLOAD_FOLDER'], exist_ok=True)
         file.save(filepath)
 
-        public_url = f"/static/uploads/{filename}"
-
+        public_url = f"/static/uploads/{filename}" 
         return jsonify({'ruta': public_url, 'mensaje': 'Imagen subida exitosamente', 'exito': True})
-    return jsonify({'mensaje': 'Archivo no permitido', 'exito': False}), 400
-
+    else:
+        return jsonify({'mensaje': 'Archivo no permitido', 'exito': False}), 400
+    
 @fobia_api.route('/static/uploads/<filename>')
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)

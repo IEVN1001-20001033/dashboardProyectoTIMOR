@@ -2,27 +2,27 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
     {
-        path: '',
-        loadComponent: () => import('.//dashboard/dashboard.component'),
+        path: 'administrador',
+        loadComponent: () => import('./dashboard/dashboard.component'),
         children: [
             {
                 path: 'dashboard',
-                loadComponent: () => import('.//dashboard/dashboard.component')
+                loadComponent: () => import('./dashboard/dashboard.component')
             },{
                 path: 'listausuarios',
-                loadComponent:()=>import('.//usuarios/usuarios.component'),
+                loadComponent:()=>import('./usuarios/usuarios.component'),
             },
             {
                 path: 'agregar',
-                loadComponent:()=>import('.//agregar/agregar.component')
+                loadComponent:()=>import('./agregar/agregar.component')
             },
             {
                 path: 'eliminar/:matricula',
-                loadComponent:()=>import('.//eliminar/eliminar.component'),
+                loadComponent:()=>import('./eliminar/eliminar.component'),
             },
             {
                 path: 'editar/:matricula',
-                loadComponent:()=>import('.//editar/editar.component'),
+                loadComponent:()=>import('./editar/editar.component'),
             }, 
             {
                 path: '',
@@ -31,6 +31,10 @@ export const routes: Routes = [
             }
 
         ]
+    },    
+    {
+        path: 'eliminar/:matricula',
+        loadComponent:()=>import('./eliminar/eliminar.component'),
     },
     {
         path: '**',

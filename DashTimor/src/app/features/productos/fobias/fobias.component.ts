@@ -5,11 +5,12 @@ import { RouterLink } from '@angular/router';
 import { FobiaService } from '../../../core/services/fobia.service';
 import { FobiaTimor } from '../../../core/interfaces/fobia-timor';
 import { FobiafilterPipe } from '../../../core/pipes/fobiafilter.pipe';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-fobias',
   standalone: true,
-  imports: [FormsModule, FobiafilterPipe, CommonModule, RouterLink],
+  imports: [FormsModule, FobiafilterPipe, CommonModule, RouterLink, NgxPaginationModule],
   templateUrl: './fobias.component.html',
   styles: ``
 })
@@ -20,13 +21,15 @@ export default class FobiasComponent implements OnInit{
   listFilter:string=''
   fobiaTitle!:string
   dataSource:any=[];
+  p: number = 1;
+
   constructor(public fobiaTimor:FobiaService){}
  
   showImage():void{
     this.muestraImg=!this.muestraImg;
   }
  
-  fobiasIric:FobiaTimor[]=[
+  fobiasList:FobiaTimor[]=[
     {
       idFobia:1,
       nombre:'Aracnofobia',

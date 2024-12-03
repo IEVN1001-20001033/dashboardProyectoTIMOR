@@ -1,8 +1,13 @@
 <div class="container">
-    <div class="row">
-      <div class="card">
-        <div class="card-header">
-          <button
+  <div class="row">
+    <div class="card">
+      <div class="card-body">
+        <div class="grid grid-cols-3 grid-rows-1 gap-4">
+          <div><h2 class="self-center text-right font-semibold font-serif">Búsqueda Rápida:</h2> </div>
+          <div class="relative">
+            <input type="text" [(ngModel)]="listFilter" name="filter" class="form-control block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500" placeholder="Búsqueda Rápida..."/>
+          </div>
+          <div> <button
             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             [routerLink]="['/perfiles/admin/agregarfobias']"
           >
@@ -12,27 +17,10 @@
    
             Agregar
           </button>
-          Lista fobias
         </div>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-2">Filtrar por:</div>
-            <div class="col-md-4">
-              <input
-                [(ngModel)]="listFilter"
-                class="form-control"
-                name="filter"
-                type="text"
-              />
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <h3>Filtro:{{ listFilter }}</h3>
-            </div>
-          </div>
+        </div>  
           <div class="table-responsive">
-            <table class="table table-striped" *ngIf="fobiasIric.length">
+            <table class="table table-striped" *ngIf="fobiasList.length">
               <thead class="thead-dark">
                 <tr>
                   <th>ID Fobia</th>
@@ -46,8 +34,8 @@
               <tbody>
                 <tr
                   *ngFor="
-                    let fobia of dataSource.fobias | fobiafilter : listFilter
-                  "
+                    let fobia of dataSource.fobias | fobiafilter : listFilter |  paginate: { itemsPerPage: 10, currentPage: p }"
+                  
                 >
                   <td>{{ fobia.idFobia }}</td>
                   <td>{{ fobia.nombre | uppercase }}</td>
@@ -59,7 +47,7 @@
                   <td>
                     <button
                       class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center me-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-900"
-                    [routerLink]="['/perfiles/admin/editarfobias',fobia.idFobia]"
+                    [routerLink]="['/fobias/editar',fobia.idFobia]"
    
                     >
                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
@@ -72,7 +60,7 @@
                   <td>
                     <button
                       class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center me-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
-                    [routerLink]="['/perfiles/admin/eliminarfobias',fobia.idFobia]" >
+                    [routerLink]="['/fobias/eliminar',fobia.idFobia]" >
                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15v3c0 .5523.44772 1 1 1h16c.5523 0 1-.4477 1-1v-3M3 15V6c0-.55228.44772-1 1-1h16c.5523 0 1 .44772 1 1v9M3 15h18M8 15v4m4-4v4m4-4v4m-5.5061-7.4939L12 10m0 0 1.5061-1.50614M12 10l1.5061 1.5061M12 10l-1.5061-1.50614"/>
                     </svg>
@@ -82,7 +70,10 @@
                   </td>
                 </tr>
               </tbody>
-            </table>
+            </table>            
+            <div class="d-flex justify-center">
+              <pagination-controls (pageChange)="p = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+            </div>
           </div>
         </div>
       </div>

@@ -58,7 +58,7 @@ export default class EliminarComponent {
  eliminar(){
   console.log("funcion: "+this.tem[3])
   this.fobiaTimor.EliminarFobia(this.tem[3]).subscribe({
-    next:()=>{this.router.navigate(['/administrador/listafobias'])},
+    next:()=>{this.router.navigate(['/perfiles/admin/listafobias'])},
     error:(e)=> console.error(e),
     complete:()=>console.info()})
  

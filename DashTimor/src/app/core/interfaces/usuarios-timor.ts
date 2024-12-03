@@ -1,5 +1,5 @@
 export interface UsuariosTimor {
-    idUsr?: number;
+    idUsr: number;
     nombre: string;
     correo: string;
     contrasena: string;

@@ -16,14 +16,7 @@ export default[
                 path: 'agregar',
                 loadComponent:()=>import('../perfiles/administrador/agregar/agregar.component')
             },
-            {
-                path: 'eliminar/:matricula',
-                loadComponent:()=>import('../perfiles/administrador/eliminar/eliminar.component'),
-            },
-            {
-                path: 'editar/:matricula',
-                loadComponent:()=>import('../perfiles/administrador/editar/editar.component'),
-            }, 
+            
             {
                 path: 'listafobias',
                 loadComponent:()=>import('../productos/fobias/fobias.component'),
@@ -31,14 +24,6 @@ export default[
             {
                 path: 'agregarfobias',
                 loadComponent:()=>import('../productos/agregar/agregar.component')
-            },
-            {
-                path: 'eliminarfobias/:idFobia',
-                loadComponent:()=>import('../productos/eliminar/eliminar.component'),
-            },
-            {
-                path: 'editarfobias/:idFobia',
-                loadComponent:()=>import('../productos/editar/editar.component'),
             },
             {
                 path: '',
@@ -53,6 +38,22 @@ export default[
 
         ],   
 
+    },
+    {
+        path: 'editar/:matricula',
+        loadComponent:()=>import('./administrador/editar/editar.component'),
+    },
+    {
+        path: 'eliminar/:matricula',
+        loadComponent:()=>import('./administrador/eliminar/eliminar.component'),
+    },
+    {
+        path: 'eliminarfobia/:idFobia',
+        loadComponent:()=>import('../productos/eliminar/eliminar.component'),
+    },
+    {
+        path: 'editarfobia/:idFobia',
+        loadComponent:()=>import('../productos/editar/editar.component'),
     },
     
     
