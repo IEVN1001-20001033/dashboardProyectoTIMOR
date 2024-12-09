@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import Chart from 'chart.js/auto';
 import { VentasService } from '../../../../../core/services/ventas.service';
+import Chart from 'chart.js/auto';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-barras',
+  selector: 'app-ventas',
   standalone: true,
-  imports: [],
-  templateUrl: './barras.component.html',
-  styleUrl: './barras.component.css'
+  imports: [CommonModule],
+  templateUrl: './ventas.component.html',
+  styles: ``
 })
-export default class BarrasComponent implements OnInit {
+export default class VentasComponent implements OnInit {
   constructor(private ventasService: VentasService) {}
 
   ngOnInit(): void {
@@ -17,7 +18,7 @@ export default class BarrasComponent implements OnInit {
   }
 
   cargarDatos(): void {
-    this.ventasService.obtenerVentasFobias().subscribe(
+    this.ventasService.obtenerVentasMensuales().subscribe(
       (data) => {
         const labels = data.map((item: any) => `${item[0]}-${item[1].toString().padStart(2, '0')}`);
         const values = data.map((item: any) => parseFloat(item[2])); 
@@ -31,13 +32,13 @@ export default class BarrasComponent implements OnInit {
   }
 
   crearGrafica(labels: string[], values: number[]): void {
-    new Chart('barrasChart', {
-      type: 'bar',
+    new Chart('ventasChart', {
+      type: 'line',
       data: {
         labels: labels,
         datasets: [
           {
-            label: 'Ventas Mensuales por Fobia',
+            label: 'Ventas Mensuales',
             data: values,
             backgroundColor: 'rgba(75, 192, 192, 0.2)',
             borderColor: 'rgba(75, 192, 192, 1)',
@@ -64,4 +65,4 @@ export default class BarrasComponent implements OnInit {
       }
     });
   }
-}
+  }

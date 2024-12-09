@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FobiaService } from '../../../core/services/fobia.service';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-fobias-activas',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,RouterLink],
   templateUrl: './fobias-activas.component.html',
   styles: ``
 })

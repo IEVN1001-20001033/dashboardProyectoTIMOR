@@ -55,6 +55,15 @@ export default[
         path: 'editarfobia/:idFobia',
         loadComponent:()=>import('../productos/editar/editar.component'),
     },
+    {
+        path: 'cliente',
+        loadComponent:()=>import('../perfiles/cliente/cliente.component'),
+    },
+    
+    {
+        path: 'desarrollador',
+        loadComponent:()=>import('../perfiles/desarrollador/desarrollador.component'),
+    }
     
     
 ]as Routes

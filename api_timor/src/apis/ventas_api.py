@@ -21,24 +21,93 @@ def obtener_datos_ventas():
         return jsonify(datos), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-
-@ventas_api.route('/ventas/agrupadas', methods=['GET'])
-def obtener_ventas_agrupadas():
-    start_date = request.args.get('start_date')
-    end_date = request.args.get('end_date')
-    cursor = con.cursor(dictionary=True)
     
-    cursor.execute("""
+@ventas_api.route('/ventas/ventas-mensuales', methods=['GET'])
+def obtener_ventas_mensuales():
+    try:
+        cursor = con.connection.cursor()
+        query = """
         SELECT 
-            DATE(fecha_venta) AS fecha, 
-            SUM(monto_pagado) AS total_ventas 
-        FROM ventas 
-        GROUP BY DATE(fecha_venta)
-        ORDER BY fecha
-    """)
+            YEAR(fecha_compra) AS anio,
+            MONTH(fecha_compra) AS mes,
+            SUM(monto) AS total_ventas
+        FROM 
+            compras
+        GROUP BY 
+            YEAR(fecha_compra), 
+            MONTH(fecha_compra)
+        ORDER BY 
+            anio, 
+            mes;
+        """
+        cursor.execute(query)
+        resultados = cursor.fetchall()
+        cursor.close()
+        return jsonify(resultados), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
     
-    ventas_agrupadas = cursor.fetchall()
-    cursor.close()
-    con.close()
+@ventas_api.route('/ventas/fobias', methods=['GET'])
+def obtener_fobias():
+    try:
+        cursor = con.connection.cursor()
+        query = """
+        SELECT 
+            f.nombre AS fobia,
+            YEAR(s.fecha_venta) AS anio,
+            MONTH(s.fecha_venta) AS mes,
+            SUM(s.monto_pagado) AS total_monto
+        FROM 
+            suscripciones s
+        JOIN 
+            fobias f
+        ON 
+            s.idFobia = f.idFobia
+        GROUP BY 
+            f.nombre, 
+            YEAR(s.fecha_venta), 
+            MONTH(s.fecha_venta)
+        ORDER BY 
+            f.nombre, 
+            anio, 
+    mes;
+        """
+        cursor.execute(query)
+        resultados = cursor.fetchall()
+        cursor.close()
+        return jsonify(resultados), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
     
-    return jsonify(ventas_agrupadas)
+@ventas_api.route('/ventas/fobias-mes', methods=['GET'])
+def obtener_fobias_mes():
+    try:
+        cursor = con.connection.cursor()
+        query = """
+        SELECT 
+            f.nombre AS fobia,
+            YEAR(s.fecha_venta) AS anio,
+            MONTH(s.fecha_venta) AS mes,
+            COUNT(*) AS cantidad_suscripciones
+        FROM 
+            suscripciones s
+        JOIN 
+            fobias f ON s.idFobia = f.idFobia
+        GROUP BY 
+            f.nombre, 
+            YEAR(s.fecha_venta), 
+            MONTH(s.fecha_venta)
+        ORDER BY 
+            f.nombre, 
+            anio, 
+            mes;
+        """
+        cursor.execute(query)
+        resultados = cursor.fetchall()
+        cursor.close()
+        return jsonify(resultados), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+

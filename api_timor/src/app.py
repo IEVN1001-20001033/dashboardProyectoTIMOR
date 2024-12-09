@@ -9,7 +9,7 @@ from apis.usr_api import user_api
 from apis.fobia_api import fobia_api
 from apis.login_api import login_api
 from apis.ventas_api import ventas_api
-from apis.graficas_api import graficas_api
+# from apis.graficas_api import graficas_api
 
 app = Flask(__name__)
 CORS(app)
@@ -23,7 +23,7 @@ app.register_blueprint(user_api, url_prefix="/api/usr_api")
 app.register_blueprint(fobia_api, url_prefix="/api/fobia_api")
 app.register_blueprint(login_api, url_prefix="/api/login_api")
 app.register_blueprint(ventas_api, url_prefix="/api/ventas_api")
-app.register_blueprint(graficas_api, url_prefix="/api/graficas_api")
+# app.register_blueprint(graficas_api, url_prefix="/api/graficas_api")
 
 # @app.route('/static/uploads/<filename>')
 # def uploaded_file(filename):
